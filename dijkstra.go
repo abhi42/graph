@@ -3,8 +3,8 @@ package graph
 import (
 	"fmt"
 	"math"
-	"strconv"
 	"sort"
+	"strconv"
 )
 
 const Infinity = math.MaxUint64
@@ -43,7 +43,7 @@ func Dijkstra(g *Graph, source, dest *Vertex) ([]*Vertex, uint64) {
 func process(source, dest *Vertex) {
 	for !areAllVerticesVisited() {
 		current, offset := getUnvisitedVertexWithShortestDistanceFromSource()
-//		fmt.Println("Current: " + current.name)
+		//		fmt.Println("Current: " + current.name)
 		markAsVisited(current, offset)
 		assignDistancesFromSourceToNeighbours(current, offset)
 		printVertices()
@@ -56,7 +56,7 @@ func areAllVerticesVisited() bool {
 			return false
 		}
 	}
-//	fmt.Println("All nodes have been visited")
+	//	fmt.Println("All nodes have been visited")
 	return true
 }
 
@@ -73,7 +73,7 @@ func assignDistancesFromSourceToNeighbours(current *Vertex, offset int) {
 	distanceOfCurrentFromSource := vertices[offset].data.distanceFromSource
 
 	for i := 0; i < len(current.neighbours); i++ {
-//		fmt.Println("Neighbour: " + current.neighbours[i].name + ", distance to " + current.name + " is " + strconv.FormatUint(current.neighbourDistances[i], 10))
+		//		fmt.Println("Neighbour: " + current.neighbours[i].name + ", distance to " + current.name + " is " + strconv.FormatUint(current.neighbourDistances[i], 10))
 		totalDistance := distanceOfCurrentFromSource + current.neighbourDistances[i]
 		handleNeighbour(current, current.neighbours[i], getOffsetInVertices(current.neighbours[i]), totalDistance)
 	}
@@ -81,7 +81,7 @@ func assignDistancesFromSourceToNeighbours(current *Vertex, offset int) {
 
 func handleNeighbour(current, neighbour *Vertex, offsetOfNeighbour int, calculatedDistance uint64) {
 	if calculatedDistance < vertices[offsetOfNeighbour].data.distanceFromSource {
-//		fmt.Println("Current: " + current.name + ", neighbour: " + neighbour.name + ", calculated distance: " + strconv.FormatUint(calculatedDistance, 10) + ", current distance: " + strconv.FormatUint(vertices[offsetOfNeighbour].data.distanceFromSource, 10))
+		//		fmt.Println("Current: " + current.name + ", neighbour: " + neighbour.name + ", calculated distance: " + strconv.FormatUint(calculatedDistance, 10) + ", current distance: " + strconv.FormatUint(vertices[offsetOfNeighbour].data.distanceFromSource, 10))
 		vertices[offsetOfNeighbour].data.distanceFromSource = calculatedDistance
 		vertices[offsetOfNeighbour].data.neighbourOnShortestDistanceToSource = current
 	}
@@ -124,9 +124,9 @@ func (v vertexInfo) String() string {
 }
 
 func printVertices() {
-//	fmt.Println("Printing vertices information...")
+	//	fmt.Println("Printing vertices information...")
 	for i := 0; i < len(vertices); i++ {
-//		fmt.Println(vertices[i].String())
+		//		fmt.Println(vertices[i].String())
 	}
 }
 
@@ -137,7 +137,7 @@ func buildShortestPath(source, dest *Vertex) ([]*Vertex, uint64) {
 		if vertices[i].v == dest {
 			shortestPath = getShortestPathRecursively(shortestPath, vertices[i].v, i)
 			shortestDistance = vertices[i].data.distanceFromSource
-			break;
+			break
 		}
 	}
 	invertBuiltShortestPath(shortestPath)
@@ -151,7 +151,7 @@ func printShortestPath(shortestPath []*Vertex, shortestDistance uint64) {
 	fmt.Print("Shortest path (distance: ", shortestDistance, ") is: ")
 	for i := 0; i < len(shortestPath); i++ {
 		fmt.Print(shortestPath[i].name)
-		if i < len(shortestPath) - 1 {
+		if i < len(shortestPath)-1 {
 			fmt.Print("-->")
 		}
 	}
@@ -159,12 +159,12 @@ func printShortestPath(shortestPath []*Vertex, shortestDistance uint64) {
 }
 
 func invertBuiltShortestPath(shortestPath []*Vertex) {
-	for i := 0; i < len(shortestPath) - 1 -i; i++ {
-		shortestPath[i], shortestPath[len(shortestPath) - 1 - i] = shortestPath[len(shortestPath) - 1 - i], shortestPath[i]
+	for i := 0; i < len(shortestPath)-1-i; i++ {
+		shortestPath[i], shortestPath[len(shortestPath)-1-i] = shortestPath[len(shortestPath)-1-i], shortestPath[i]
 	}
 }
 
-func getShortestPathRecursively(shortestPath []*Vertex, v *Vertex, offset int) ([]*Vertex) {
+func getShortestPathRecursively(shortestPath []*Vertex, v *Vertex, offset int) []*Vertex {
 	shortestPath = append(shortestPath, v)
 	newCurrent := vertices[offset].data.neighbourOnShortestDistanceToSource
 	if newCurrent != nil {

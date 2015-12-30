@@ -1,12 +1,12 @@
 package graph
 
 import (
-	"testing"
+	"fmt"
 	"github.com/deckarep/golang-set"
 	"reflect"
-	"fmt"
 	"sort"
 	"strconv"
+	"testing"
 )
 
 func TestDijkstraWith3Nodes(t *testing.T) {
@@ -135,7 +135,7 @@ func TestPointers(t *testing.T) {
 
 func TestCompare(t *testing.T) {
 	arr := make(SortableArr, 5, 5)
-	for i := 0; i < len(arr) - 1; i++ {
+	for i := 0; i < len(arr)-1; i++ {
 		arr[i] = len(arr) - i
 	}
 	fmt.Println(arr)
@@ -146,7 +146,7 @@ func TestCompare(t *testing.T) {
 func TestCompareVertices(t *testing.T) {
 	input := make(SortableVertices, 5, 5)
 	for i := 0; i < len(input); i++ {
-		aVertex := CreateVertex("v" + strconv.Itoa(i + 1))
+		aVertex := CreateVertex("v" + strconv.Itoa(i+1))
 		input[i].v = *aVertex
 		input[i].distance = uint64(len(input) - i)
 	}
@@ -161,11 +161,11 @@ func TestCompareVertices(t *testing.T) {
 }
 
 type Vertices struct {
-	v Vertex
+	v        Vertex
 	distance uint64
 }
 
-type SortableVertices [] Vertices
+type SortableVertices []Vertices
 
 func (v SortableVertices) Len() int {
 	return len(v)
@@ -179,7 +179,6 @@ func (v SortableVertices) Swap(i, j int) {
 func (vertexStruct Vertices) String() string {
 	return vertexStruct.v.name + ":" + strconv.FormatUint(vertexStruct.distance, 10)
 }
-
 
 type SortableArr []int
 

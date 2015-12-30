@@ -1,15 +1,15 @@
 package graph
 
 import (
-//	"github.com/deckarep/golang-set"
-//	"fmt"
+	//	"github.com/deckarep/golang-set"
+	//	"fmt"
 	"strconv"
 )
 
 type Vertex struct {
-	name       string     // immutable
+	name string // immutable
 	// instead of a map[*Vertex]uint64, 2 slices are used since we need to obtain the neighbours in a deterministic order.
-	neighbours []*Vertex
+	neighbours         []*Vertex
 	neighbourDistances []uint64
 }
 
@@ -40,7 +40,7 @@ func (v *Vertex) String() string {
 	s1 := v.name + ", neighbours with distances: "
 	for i := 0; i < len(v.neighbours); i++ {
 		s2 := v.neighbours[i].name + ":" + strconv.FormatUint(v.neighbourDistances[i], 10)
-		if i < len(v.neighbours) - 1 {
+		if i < len(v.neighbours)-1 {
 			s2 = s2 + ", "
 		}
 		s1 = s1 + s2
